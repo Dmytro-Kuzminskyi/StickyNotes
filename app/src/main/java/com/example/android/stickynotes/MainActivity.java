@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Note note = new Note(data.getIntExtra("ID", -1), data.getStringExtra("NOTE"), data.getStringExtra("DATE_TIME"), data.getLongExtra("ABS_TIME", 0));
+        Note note = (Note) data.getSerializableExtra("NOTE");
         if (resultCode == 0) {
             if (!note.getNote().isEmpty())
                 addNoteToDatabase(note.getNote(), note.getDateTime(), note.getAbsoluteTime());
@@ -132,9 +132,7 @@ public class MainActivity extends AppCompatActivity {
             if (object.getNote() == userText) note = object;
         }
         Intent intent = new Intent(v.getContext(), EditNoteActivity.class);
-        intent.putExtra("USER_TEXT", note.getNote());
-        intent.putExtra("USER_TIME", note.getDateTime());
-        intent.putExtra("ID", note.getId());
+        intent.putExtra("NOTE", note);
         startActivityForResult(intent, 1);
     }
 }

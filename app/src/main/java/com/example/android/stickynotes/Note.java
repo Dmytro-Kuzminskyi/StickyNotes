@@ -1,8 +1,8 @@
 package com.example.android.stickynotes;
 
-import android.util.Log;
+import java.io.Serializable;
 
-public class Note {
+public class Note implements Serializable {
     private int id;
     private String note;
     private String dateTime;

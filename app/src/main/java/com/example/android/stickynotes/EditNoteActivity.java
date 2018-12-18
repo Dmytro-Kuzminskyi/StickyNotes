@@ -16,18 +16,18 @@ import java.util.Date;
 public class EditNoteActivity extends AppCompatActivity {
     private EditText mUserText;
     private TextView mTextView;
-    private int noteID;
+    private Note note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editnote);
         getSupportActionBar().setTitle(R.string.edit_note);
+        note = (Note) getIntent().getSerializableExtra("NOTE");
         mTextView = findViewById(R.id.above_edit_note_text);
-        mTextView.setText(getIntent().getStringExtra("USER_TIME"));
+        mTextView.setText(note.getDateTime());
         mUserText = findViewById(R.id.edit_note);
-        mUserText.setText(getIntent().getStringExtra("USER_TEXT"));
-        noteID = getIntent().getIntExtra("ID", -1);
+        mUserText.setText(note.getNote());
     }
 
     @Override
@@ -55,11 +55,10 @@ public class EditNoteActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent();
         setText(mTextView);
-        long absoluteTime = System.currentTimeMillis();
-        intent.putExtra("NOTE", mUserText.getText().toString());
-        intent.putExtra("DATE_TIME", mTextView.getText().toString());
-        intent.putExtra("ABS_TIME", absoluteTime);
-        intent.putExtra("ID", noteID);
+        note.setAbsoluteTime(System.currentTimeMillis());
+        note.setNote(mUserText.getText().toString());
+        note.setDateTime(mTextView.getText().toString());
+        intent.putExtra("NOTE", note);
         setResult(1, intent);
         finish();
     }
