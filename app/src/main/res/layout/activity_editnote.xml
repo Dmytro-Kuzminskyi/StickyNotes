@@ -1,28 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/edit_note_layout"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
 
+
     <TextView
         android:id="@+id/above_edit_note_text"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <TextView
+        android:id="@+id/edit_not_divider"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/above_edit_note_text"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="?android:listDivider"/>
+
+    <TextView
+        android:id="@+id/characters_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toEndOf="@+id/edit_not_divider"
+        android:text="0"/>
+
+    <TextView
+        android:id="@+id/characters_counter_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toEndOf="@+id/characters_counter"
+        android:text="@string/characters"/>
 
     <EditText
         android:id="@+id/edit_note"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
+        android:layout_below="@+id/above_edit_note_text"
         android:layout_gravity="center_vertical"
-        android:inputType="textMultiLine"
         android:gravity="top"
-        android:background="@android:color/transparent"/>
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/transparent"
+        android:inputType="textMultiLine" />
 
-</LinearLayout>
+</RelativeLayout>

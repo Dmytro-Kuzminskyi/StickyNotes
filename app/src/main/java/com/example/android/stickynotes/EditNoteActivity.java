@@ -3,8 +3,12 @@ package com.example.android.stickynotes;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.text.DateFormat;
@@ -16,18 +20,36 @@ import java.util.Date;
 public class EditNoteActivity extends AppCompatActivity {
     private EditText mUserText;
     private TextView mTextView;
-    private Note note;
+    private TextView mCharactersCounter;
+    private Note initialNote;
+    private Note editedNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editnote);
         getSupportActionBar().setTitle(R.string.edit_note);
-        note = (Note) getIntent().getSerializableExtra("NOTE");
+        initialNote = editedNote = (Note) getIntent().getSerializableExtra("NOTE");
+        mCharactersCounter = findViewById(R.id.characters_counter);
         mTextView = findViewById(R.id.above_edit_note_text);
-        mTextView.setText(note.getDateTime());
+        mTextView.setText(initialNote.getDateTime());
         mUserText = findViewById(R.id.edit_note);
-        mUserText.setText(note.getNote());
+        mUserText.setText(initialNote.getNote());
+        mCharactersCounter.setText(String.valueOf(countOfCharacters(mUserText.getText())));
+        mUserText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mCharactersCounter.setText(String.valueOf(countOfCharacters(s)));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
     @Override
@@ -54,11 +76,13 @@ public class EditNoteActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent();
-        setText(mTextView);
-        note.setAbsoluteTime(System.currentTimeMillis());
-        note.setNote(mUserText.getText().toString());
-        note.setDateTime(mTextView.getText().toString());
-        intent.putExtra("NOTE", note);
+        if (!mUserText.getText().toString().equals(initialNote.getNote())) {
+            setText(mTextView);
+            editedNote.setAbsoluteTime(System.currentTimeMillis());
+            editedNote.setNote(mUserText.getText().toString());
+            editedNote.setDateTime(mTextView.getText().toString());
+        }
+        intent.putExtra("NOTE", editedNote);
         setResult(1, intent);
         finish();
     }
@@ -73,5 +97,23 @@ public class EditNoteActivity extends AppCompatActivity {
         simpleDateFormat.applyLocalizedPattern(patternDateWithoutYear);
         String output = simpleDateFormat.format(dateTime) + " " + (((DateFormat) timeFormat).format(dateTime));
         view.setText(output);
+    }
+
+    private int countOfCharacters(Editable object) {
+        String text = object.toString();
+        int counter = 0;
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) != 0x0A) counter++;
+        }
+        return counter;
+    }
+
+    private int countOfCharacters(CharSequence seq) {
+        String text = seq.toString();
+        int counter = 0;
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) != 0x0A) counter++;
+        }
+        return counter;
     }
 }

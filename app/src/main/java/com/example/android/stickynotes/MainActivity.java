@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
@@ -45,6 +44,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
+        ListView mainList = findViewById(R.id.main_list);
+        mainList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Note note = null;
+                TextView mUserText = view.findViewById(R.id.note_text);
+                String userText = mUserText.getText().toString();
+                for (Note object: notes) {
+                    if (object.getNote() == userText) note = object;
+                }
+                Intent intent = new Intent(view.getContext(), EditNoteActivity.class);
+                intent.putExtra("NOTE", note);
+                startActivityForResult(intent, 1);
+            }
+        });
     }
     @Override
     protected void onResume() {
@@ -76,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
         } else if (resultCode == 1) {
             if (!note.getNote().isEmpty())
                 updateNoteInDatabase(note.getId(), note.getNote(), note.getDateTime(), note.getAbsoluteTime());
+            else
+                deleteNoteFromDatabase(note.getId());
         }
         invalidateOptionsMenu();
     }
@@ -100,6 +116,11 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.close();
     }
 
+    private void deleteNoteFromDatabase(int id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete("Notes", "id="+id, null);
+    }
+
     private void getNotesFromDatabase() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from Notes", null);
@@ -122,17 +143,5 @@ public class MainActivity extends AppCompatActivity {
         noteAdapter = new NoteAdapter(this, notes);
         ListView listView = findViewById(R.id.main_list);
         listView.setAdapter(noteAdapter);
-    }
-
-    public void editNote(View v) {
-        Note note = null;
-        TextView mUserText = v.findViewById(R.id.note_text);
-        String userText = mUserText.getText().toString();
-        for (Note object: notes) {
-            if (object.getNote() == userText) note = object;
-        }
-        Intent intent = new Intent(v.getContext(), EditNoteActivity.class);
-        intent.putExtra("NOTE", note);
-        startActivityForResult(intent, 1);
     }
 }
