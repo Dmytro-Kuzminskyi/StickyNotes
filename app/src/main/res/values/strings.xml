@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Sticky Notes</string>
+    <string name="add_note">Add note</string>
+    <string name="confirm">Confirm</string>
+    <string name="notes">Notes</string>
+    <string name="open_drawer">Open</string>
+    <string name="close_drawer">Close</string>
+</resources>
