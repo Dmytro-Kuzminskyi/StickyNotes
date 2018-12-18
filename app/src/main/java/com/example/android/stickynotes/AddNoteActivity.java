@@ -2,6 +2,7 @@ package com.example.android.stickynotes;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -21,8 +22,7 @@ public class AddNoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addnote);
-        String title = getIntent().getStringExtra("TITLE");
-        getSupportActionBar().setTitle(title);
+        getSupportActionBar().setTitle(R.string.add_note);
         mTextView = findViewById(R.id.above_add_note_text);
         setText(mTextView);
         mUserText = findViewById(R.id.add_note);
@@ -31,9 +31,8 @@ public class AddNoteActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.actionbar_menu, menu);
-        MenuItem item = menu.findItem(R.id.actionbar_add_note);
-        item.setTitle(R.string.confirm);
-        item.setIcon(R.drawable.ic_confirm);
+        menu.findItem(R.id.actionbar_settings).setVisible(false);
+        menu.findItem(R.id.actionbar_confirm).setVisible(true);
         return true;
     }
 
@@ -52,7 +51,7 @@ public class AddNoteActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.actionbar_add_note: {
+            case R.id.actionbar_confirm: {
                 onBackPressed();
             }
             case android.R.id.home: {
@@ -70,7 +69,7 @@ public class AddNoteActivity extends AppCompatActivity {
         intent.putExtra("NOTE",mUserText.getText().toString());
         intent.putExtra("DATE_TIME",mTextView.getText().toString());
         intent.putExtra("ABS_TIME", absoluteTime);
-        setResult(RESULT_OK, intent);
+        setResult(0, intent);
         finish();
     }
 }

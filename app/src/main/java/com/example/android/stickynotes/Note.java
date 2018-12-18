@@ -54,15 +54,4 @@ public class Note {
         this.absoluteTime = absoluteTime;
     }
 
-    public String getHeader(){
-        String text = note;
-        if (text.indexOf('\n') == 0)
-            do {
-            text = text.substring(1,text.length());
-            } while (text.indexOf('\n') == 0);
-        int position = text.indexOf('\n');
-        if (position > 0) return text.substring(0, position);
-        else return text;
-    }
-
 }

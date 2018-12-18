@@ -43,7 +43,7 @@ public class NoteAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.list_view_item, parent, false);
         }
         Note note = getNote(position);
-        ((TextView) view.findViewById(R.id.note_header)).setText(note.getHeader());
+        ((TextView) view.findViewById(R.id.note_text)).setText(note.getNote());
         ((TextView) view.findViewById(R.id.note_date_time)).setText(note.getDateTime());
         return view;
     }

@@ -9,14 +9,33 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
+    <RelativeLayout
+        android:id="@+id/main_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <ListView
         android:id="@+id/main_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="16dp"
-        android:orientation="vertical">
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:orientation="vertical"
+        android:divider="@color/white">
 
     </ListView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_note"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_alignBottom="@+id/main_list"
+            android:layout_alignEnd="@+id/main_list"/>
+
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/main_navigation"
