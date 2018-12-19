@@ -67,7 +67,7 @@ public class AddNoteActivity extends AppCompatActivity {
         setText(mTextView);
         long absoluteTime = System.currentTimeMillis();
         intent.putExtra("NOTE", new Note(mUserText.getText().toString(), mTextView.getText().toString(), absoluteTime));
-        setResult(0, intent);
+        setResult(RESULT_OK, intent);
         finish();
     }
 }

@@ -19,6 +19,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    private final int REQUEST_CODE_ADD_NOTE = 1;
+    private final int REQUEST_CODE_EDIT_NOTE = 2;
     private DBHelper dbHelper;
     private NoteAdapter noteAdapter;
     private ActionBarDrawerToggle mToggle;
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddNoteActivity.class);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
             }
         });
         ListView mainList = findViewById(R.id.main_list);
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Intent intent = new Intent(view.getContext(), EditNoteActivity.class);
                 intent.putExtra("NOTE", note);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, REQUEST_CODE_EDIT_NOTE);
             }
         });
     }
@@ -84,14 +86,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Note note = (Note) data.getSerializableExtra("NOTE");
-        if (resultCode == 0) {
+        switch (requestCode){
+            case REQUEST_CODE_ADD_NOTE:
             if (!note.getNote().isEmpty())
                 addNoteToDatabase(note.getNote(), note.getDateTime(), note.getAbsoluteTime());
-        } else if (resultCode == 1) {
+            break;
+            case REQUEST_CODE_EDIT_NOTE:
             if (!note.getNote().isEmpty())
                 updateNoteInDatabase(note.getId(), note.getNote(), note.getDateTime(), note.getAbsoluteTime());
             else
                 deleteNoteFromDatabase(note.getId());
+            break;
         }
         invalidateOptionsMenu();
     }

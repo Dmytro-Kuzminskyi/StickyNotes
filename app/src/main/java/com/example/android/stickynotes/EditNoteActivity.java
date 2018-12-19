@@ -83,7 +83,7 @@ public class EditNoteActivity extends AppCompatActivity {
             editedNote.setDateTime(mTextView.getText().toString());
         }
         intent.putExtra("NOTE", editedNote);
-        setResult(1, intent);
+        setResult(RESULT_OK, intent);
         finish();
     }
 
