@@ -1,11 +1,21 @@
 <resources>
+
+    <string-array name="actionbar_spinner">
+        <item>@string/notes</item>
+        <item>@string/trash</item>
+    </string-array>
+
     <string name="app_name">Sticky Notes</string>
     <string name="settings">Settings</string>
     <string name="add_note">Add note</string>
     <string name="edit_note">Edit note</string>
     <string name="confirm">Confirm</string>
+    <string name="revert">Revert</string>
+    <string name="background">Background</string>
     <string name="notes">Notes</string>
+    <string name="trash">Trash</string>
     <string name="open_drawer">Open</string>
     <string name="close_drawer">Close</string>
     <string name="characters">characters</string>
+
 </resources>

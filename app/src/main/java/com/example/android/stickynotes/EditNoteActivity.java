@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.text.DateFormat;
@@ -54,16 +52,14 @@ public class EditNoteActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
-        menu.findItem(R.id.actionbar_settings).setVisible(false);
-        menu.findItem(R.id.actionbar_confirm).setVisible(true);
+        getMenuInflater().inflate(R.menu.actionbar_menu_default_edit_note_activity, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.actionbar_confirm: {
+            case R.id.actionbar_editing_confirm_edit_note_activity: {
                 onBackPressed();
             }
             case android.R.id.home: {
@@ -116,4 +112,5 @@ public class EditNoteActivity extends AppCompatActivity {
         }
         return counter;
     }
+
 }

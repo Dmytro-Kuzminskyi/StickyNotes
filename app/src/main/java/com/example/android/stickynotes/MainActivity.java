@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private final int REQUEST_CODE_ADD_NOTE = 1;
     private final int REQUEST_CODE_EDIT_NOTE = 2;
     private DBHelper dbHelper;
-    private NoteAdapter noteAdapter;
     private ActionBarDrawerToggle mToggle;
     private ArrayList<Note> notes;
 
@@ -35,9 +33,8 @@ public class MainActivity extends AppCompatActivity {
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open_drawer, R.string.close_drawer);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
-        ActionBar mActionBar = getSupportActionBar();
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setTitle(R.string.notes);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 TextView mUserText = view.findViewById(R.id.note_text);
                 String userText = mUserText.getText().toString();
                 for (Note object: notes) {
-                    if (object.getNote() == userText) note = object;
+                    if (object.getNote().equals(userText)) note = object;
                 }
                 Intent intent = new Intent(view.getContext(), EditNoteActivity.class);
                 intent.putExtra("NOTE", note);
@@ -79,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
+        getMenuInflater().inflate(R.menu.actionbar_menu_main_activity, menu);
         return true;
     }
 
@@ -145,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showNotes() {
-        noteAdapter = new NoteAdapter(this, notes);
+        NoteAdapter noteAdapter = new NoteAdapter(this, notes);
         ListView listView = findViewById(R.id.main_list);
         listView.setAdapter(noteAdapter);
     }

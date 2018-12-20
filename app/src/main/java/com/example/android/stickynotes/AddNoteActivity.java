@@ -2,7 +2,6 @@ package com.example.android.stickynotes;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -30,9 +29,7 @@ public class AddNoteActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
-        menu.findItem(R.id.actionbar_settings).setVisible(false);
-        menu.findItem(R.id.actionbar_confirm).setVisible(true);
+        getMenuInflater().inflate(R.menu.actionbar_menu_add_note_activity, menu);
         return true;
     }
 
@@ -51,7 +48,7 @@ public class AddNoteActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.actionbar_confirm: {
+            case R.id.actionbar_confirm_add_note_activity: {
                 onBackPressed();
             }
             case android.R.id.home: {
