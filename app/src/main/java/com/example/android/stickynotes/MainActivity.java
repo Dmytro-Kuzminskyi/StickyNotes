@@ -88,15 +88,15 @@ public class MainActivity extends AppCompatActivity {
         Note note = (Note) data.getSerializableExtra("NOTE");
         switch (requestCode){
             case REQUEST_CODE_ADD_NOTE:
-            if (!note.getNote().isEmpty())
-                addNoteToDatabase(note.getNote(), note.getDateTime(), note.getAbsoluteTime());
-            break;
+                if (!note.getNote().isEmpty())
+                    addNoteToDatabase(note.getNote(), note.getDateTime(), note.getAbsoluteTime());
+                break;
             case REQUEST_CODE_EDIT_NOTE:
-            if (!note.getNote().isEmpty())
-                updateNoteInDatabase(note.getId(), note.getNote(), note.getDateTime(), note.getAbsoluteTime());
-            else
-                deleteNoteFromDatabase(note.getId());
-            break;
+                if (!note.getNote().isEmpty())
+                    updateNoteInDatabase(note.getId(), note.getNote(), note.getDateTime(), note.getAbsoluteTime());
+                else
+                    deleteNoteFromDatabase(note.getId());
+                break;
         }
     }
 
