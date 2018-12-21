@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.text.DateFormat;
@@ -50,27 +48,6 @@ public class EditNoteActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
-        menu.findItem(R.id.actionbar_settings).setVisible(false);
-        menu.findItem(R.id.actionbar_confirm).setVisible(true);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.actionbar_confirm: {
-                onBackPressed();
-            }
-            case android.R.id.home: {
-                onBackPressed();
-            }
-        }
-        return true;
     }
 
     @Override

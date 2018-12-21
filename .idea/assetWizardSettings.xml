@@ -33,9 +33,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_revert" />
+                                      <entry key="outputName" value="ic_revert_disabled" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="000000" />
+                                      <entry key="themeColor" value="828282" />
                                     </map>
                                   </option>
                                 </PersistentState>

@@ -4,6 +4,7 @@
     <string name="add_note">Add note</string>
     <string name="edit_note">Edit note</string>
     <string name="confirm">Confirm</string>
+    <string name="revert">Revert</string>
     <string name="notes">Notes</string>
     <string name="open_drawer">Open</string>
     <string name="close_drawer">Close</string>

@@ -22,6 +22,8 @@
         android:layout_marginBottom="8dp"
         android:layout_gravity="center_vertical"
         android:inputType="textMultiLine"
+        android:cursorVisible="false"
+        android:textCursorDrawable="@null"
         android:gravity="top"
         android:background="@android:color/transparent"/>
 

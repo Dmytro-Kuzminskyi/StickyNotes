@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
+        super.onCreateOptionsMenu(menu);
         return true;
     }
 
@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
                 deleteNoteFromDatabase(note.getId());
             break;
         }
-        invalidateOptionsMenu();
     }
 
     private void addNoteToDatabase(String note, String dateTime, long absoluteTime) {
