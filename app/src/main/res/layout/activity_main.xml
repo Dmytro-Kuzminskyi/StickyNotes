@@ -21,9 +21,7 @@
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:orientation="vertical"
-        android:divider="@color/white">
-
-    </ListView>
+        android:divider="@color/white"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
@@ -43,8 +41,6 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:layout_gravity="start"
-        app:menu="@menu/drawer_nav_menu">
-
-    </android.support.design.widget.NavigationView>
+        app:menu="@menu/drawer_nav_menu"/>
 
 </android.support.v4.widget.DrawerLayout>

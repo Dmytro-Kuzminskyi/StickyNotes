@@ -4,12 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 import android.widget.TextView;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -19,7 +16,7 @@ import java.text.Format;
 import android.content.Intent;
 
 public class AddNoteActivity extends AppCompatActivity {
-    private EditText mUserText;
+    private EditTextWithListener mUserText;
     private TextView mTextView;
     private Menu menu;
 
@@ -39,7 +36,7 @@ public class AddNoteActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                menuItemsChange();
+                switchesMenuItems();
             }
 
             @Override
@@ -50,9 +47,31 @@ public class AddNoteActivity extends AppCompatActivity {
         mUserText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mUserText.setCursorVisible(true);
+                mUserText.requestFocus();
             }
         });
+        mUserText.setBackPressedListener(new EditTextWithListener.BackPressedListener() {
+            @Override
+            public void onImeBack(EditTextWithListener editText) {
+                mUserText.clearFocus();
+            }
+        });
+        mUserText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    mUserText.setCursorVisible(false);
+                } else {
+                    mUserText.setCursorVisible(true);
+                }
+            }
+        });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.add_note_activity_menu, menu);
+        this.menu = menu;
+        return true;
     }
 
     private void setText(TextView view) {
@@ -67,12 +86,6 @@ public class AddNoteActivity extends AppCompatActivity {
         view.setText(output);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add_note_activity_menu, menu);
-        this.menu = menu;
-        return true;
-    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -94,7 +107,7 @@ public class AddNoteActivity extends AppCompatActivity {
         }
     }
 
-    private void menuItemsChange() {
+    private void switchesMenuItems() {
         if (mUserText.getText().toString().isEmpty()) {
             menu.findItem(R.id.confirm_add_note_activity).setEnabled(false);
             menu.findItem(R.id.confirm_add_note_activity).setIcon(R.drawable.ic_confirm_disabled);
@@ -108,11 +121,6 @@ public class AddNoteActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        backToMainActivity();
-    }
-
     private void backToMainActivity() {
         Intent intent = new Intent();
         setText(mTextView);
@@ -120,5 +128,10 @@ public class AddNoteActivity extends AppCompatActivity {
         intent.putExtra("NOTE", new Note(mUserText.getText().toString(), mTextView.getText().toString(), absoluteTime));
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        backToMainActivity();
     }
 }

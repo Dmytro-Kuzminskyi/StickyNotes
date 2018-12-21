@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/edit_note_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:paddingRight="16dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
 
     <TextView
@@ -46,15 +47,16 @@
         android:layout_toEndOf="@+id/characters_counter"
         android:text="@string/characters"/>
 
-    <EditText
+    <com.example.android.stickynotes.EditTextWithListener
         android:id="@+id/edit_note"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/above_edit_note_text"
         android:layout_gravity="center_vertical"
+        android:inputType="textMultiLine"
+        android:textCursorDrawable="@null"
         android:gravity="top"
         android:layout_marginBottom="8dp"
-        android:background="@android:color/transparent"
-        android:inputType="textMultiLine" />
+        android:background="@android:color/transparent" />
 
 </RelativeLayout>
